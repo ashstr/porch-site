@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Porch — One stoic. Every morning.</title>
+<meta name="description" content="A daily stoic wisdom app with cinematic narration. One quote from Marcus Aurelius, Seneca, or Epictetus every morning — narrated like a documentary." />
+<meta property="og:title" content="Porch — One stoic. Every morning." />
+<meta property="og:description" content="Daily stoic wisdom, narrated like a documentary. Two minutes of calm to start the day." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --stone:      #1C1610;
+    --stone2:     #2C2416;
+    --stone3:     #3A3020;
+    --parchment:  #F2E8D0;
+    --gold:       #C9A84C;
+    --gold-light: #E8D5A3;
+    --gold-dark:  #8B6914;
+    --rust:       #8B3A1F;
+    --ink:        #1A1510;
+    --xs: 4px; --sm: 8px; --md: 12px; --lg: 16px; --xl: 24px; --xxl: 32px;
+    --card-radius: 20px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--stone);
+    color: var(--gold-light);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-weight: 300;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 var(--xl); }
+
+  /* ---- shared type ---- */
+  .eyebrow {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-size: 11px;
+  }
+  h1, h2, h3 { font-family: 'Cinzel', serif; font-weight: 500; color: var(--gold-light); }
+  .serif-italic { font-style: italic; }
+
+  /* ---- top bar ---- */
+  header.bar {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(28,22,16,0.82);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(139,105,20,0.25);
+  }
+  .bar-inner { display: flex; align-items: center; justify-content: space-between; padding: var(--lg) var(--xl); max-width: 1080px; margin: 0 auto; }
+  .brand { font-family: 'Cinzel', serif; font-weight: 600; letter-spacing: 0.3em; font-size: 13px; color: var(--gold); text-transform: uppercase; }
+  .bar a.cta { font-family:'Cinzel',serif; font-weight:600; font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color: var(--ink); background: var(--gold); padding: 9px 16px; border-radius: 999px; text-decoration:none; }
+
+  /* ---- hero ---- */
+  .hero { position: relative; padding: clamp(64px, 12vw, 140px) 0 var(--xxl); text-align: center;
+    background:
+      radial-gradient(120% 80% at 50% -10%, rgba(201,168,76,0.10), transparent 60%),
+      var(--stone);
+  }
+  .hero .eyebrow { display:block; margin-bottom: var(--xl); }
+  .hero h1 {
+    font-size: clamp(40px, 8vw, 86px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+    margin-bottom: var(--xl);
+  }
+  .hero h1 .line2 { color: var(--gold); }
+  .hero .sub {
+    font-family: 'Crimson Pro', serif; font-style: italic; font-weight: 300;
+    font-size: clamp(19px, 2.6vw, 26px);
+    color: var(--gold-light); opacity: 0.85;
+    max-width: 620px; margin: 0 auto var(--xxl);
+  }
+  .badges { display:flex; gap: var(--md); justify-content:center; flex-wrap: wrap; }
+  .store-badge {
+    display:inline-flex; align-items:center; gap:10px;
+    background: var(--gold); color: var(--ink);
+    padding: 14px 26px; border-radius: 14px; text-decoration:none;
+    font-family: 'Cinzel', serif; font-weight: 600; letter-spacing: 0.04em;
+    transition: transform .18s ease, box-shadow .18s ease;
+    box-shadow: 0 10px 30px rgba(201,168,76,0.18);
+  }
+  .store-badge:hover { transform: translateY(-2px); box-shadow: 0 14px 38px rgba(201,168,76,0.28); }
+  .store-badge small { display:block; font-size:9px; letter-spacing:0.18em; text-transform:uppercase; opacity:0.7; }
+  .store-badge span { font-size: 17px; }
+  .store-badge.ghost { background: transparent; color: var(--gold-light); border:1px solid var(--gold-dark); box-shadow:none; }
+  .free-note { margin-top: var(--lg); font-style: italic; opacity: 0.6; font-size: 15px; }
+
+  /* ---- quote card (the product's signature object) ---- */
+  .card-stage { padding: var(--xxl) 0 clamp(48px,10vw,96px); display:flex; justify-content:center; }
+  .quote-card {
+    background: var(--parchment); color: var(--ink);
+    border-radius: var(--card-radius);
+    padding: 38px 32px 30px;
+    max-width: 420px; width: 100%;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+    border: 1px solid rgba(139,105,20,0.4);
+    position: relative;
+  }
+  .tag {
+    display:inline-block; font-family:'Cinzel',serif; font-weight:600; font-size:9px;
+    letter-spacing:0.2em; text-transform:uppercase; color: #fff; background: var(--rust);
+    padding: 5px 11px; border-radius: 999px; margin-bottom: var(--xl);
+  }
+  .quote-card .body {
+    font-family:'Crimson Pro',serif; font-style: italic; font-weight: 300;
+    font-size: 23px; line-height: 1.45; color: var(--ink); margin-bottom: var(--xl);
+  }
+  .quote-card .body .first { font-family:'Cinzel',serif; font-style: normal; font-weight: 400; }
+  .author { font-family:'Cinzel',serif; font-weight: 600; font-size: 11px; letter-spacing: 0.22em; text-transform:uppercase; color: var(--gold-dark); }
+  .player {
+    margin-top: var(--xl); padding-top: var(--lg);
+    border-top: 1px solid rgba(139,105,20,0.3);
+    display:flex; align-items:center; gap: var(--md);
+  }
+  .play-btn {
+    width: 42px; height: 42px; border-radius: 999px; flex: none;
+    background: var(--gold-dark); display:flex; align-items:center; justify-content:center;
+  }
+  .play-btn::before { content:""; border-left: 13px solid var(--parchment); border-top: 8px solid transparent; border-bottom: 8px solid transparent; margin-left: 3px; }
+  .wave { flex:1; height: 26px; display:flex; align-items:center; gap:3px; }
+  .wave i { flex:1; background: var(--gold-dark); opacity:0.55; border-radius:2px; }
+  .play-label { font-family:'Cinzel',serif; font-weight:600; font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color: var(--gold-dark); }
+
+  /* ---- features ---- */
+  section { padding: clamp(56px, 9vw, 110px) 0; }
+  .section-head { text-align:center; max-width: 640px; margin: 0 auto var(--xxl); }
+  .section-head .eyebrow { display:block; margin-bottom: var(--lg); }
+  .section-head h2 { font-size: clamp(28px, 4.5vw, 44px); line-height:1.15; margin-bottom: var(--lg); }
+  .section-head p { font-style: italic; opacity: 0.75; font-size: 19px; }
+
+  .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--lg); }
+  .feature {
+    background: var(--stone2); border: 1px solid rgba(139,105,20,0.22);
+    border-radius: var(--card-radius); padding: var(--xl);
+  }
+  .feature .glyph {
+    width: 46px; height: 46px; border-radius: 12px; margin-bottom: var(--lg);
+    background: linear-gradient(150deg, var(--stone3), var(--stone2));
+    border: 1px solid var(--gold-dark);
+    display:flex; align-items:center; justify-content:center; font-size: 22px;
+  }
+  .feature h3 { font-size: 18px; font-weight: 500; margin-bottom: var(--sm); color: var(--gold-light); }
+  .feature p { font-size: 16px; opacity: 0.72; }
+
+  /* ---- "what porch is not" ---- */
+  .not { background: var(--stone2); border-top:1px solid rgba(139,105,20,0.2); border-bottom:1px solid rgba(139,105,20,0.2); }
+  .not .row { display:flex; gap: var(--xl); flex-wrap: wrap; justify-content:center; margin-top: var(--xl); }
+  .not .pill {
+    font-family:'Cinzel',serif; font-weight:500; font-size: 13px; letter-spacing:0.08em;
+    color: var(--gold-light); opacity:0.8;
+    border: 1px solid var(--gold-dark); border-radius: 999px; padding: 10px 20px;
+  }
+  .not .pill s { color: var(--rust); opacity:0.9; text-decoration-thickness: 2px; }
+
+  /* ---- final cta ---- */
+  .final { text-align:center; }
+  .final h2 { font-size: clamp(30px, 5vw, 52px); margin-bottom: var(--lg); }
+  .final .sub { font-style: italic; opacity:0.78; font-size: 20px; margin-bottom: var(--xxl); }
+
+  footer { padding: var(--xxl) 0 var(--xl); text-align:center; border-top:1px solid rgba(139,105,20,0.18); }
+  footer .brand { display:block; margin-bottom: var(--md); }
+  footer nav a { color: var(--gold-light); opacity:0.6; text-decoration:none; font-size:14px; margin: 0 var(--md); }
+  footer nav a:hover { opacity:1; color: var(--gold); }
+  footer .fine { margin-top: var(--lg); font-size: 13px; opacity:0.4; font-style: italic; }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="bar-inner">
+    <span class="brand">Porch</span>
+    <a class="cta" href="#get">Download</a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Daily Stoic Wisdom</span>
+      <h1>One stoic.<br /><span class="line2">Every morning.</span></h1>
+      <p class="sub">Narrated like a documentary. One quote from Marcus Aurelius, Seneca, or Epictetus each day — with two minutes of calm to start it.</p>
+      <div class="badges" id="get">
+        <a class="store-badge" href="#"><span>&#63743;</span><span><small>Download on the</small>App Store</span></a>
+        <a class="store-badge ghost" href="#features"><span>See how it works</span></a>
+      </div>
+      <p class="free-note">Free. No ads. No account required to start.</p>
+    </div>
+  </section>
+
+  <!-- SIGNATURE QUOTE CARD -->
+  <div class="card-stage">
+    <article class="quote-card">
+      <span class="tag">Marcus Aurelius</span>
+      <p class="body"><span class="first">You</span> have power over your mind — not outside events. Realize this, and you will find strength.</p>
+      <span class="author">Meditations</span>
+      <div class="player">
+        <div class="play-btn" aria-hidden="true"></div>
+        <div class="wave" aria-hidden="true">
+          <i style="height:40%"></i><i style="height:70%"></i><i style="height:100%"></i><i style="height:55%"></i><i style="height:85%"></i><i style="height:35%"></i><i style="height:65%"></i><i style="height:90%"></i><i style="height:50%"></i><i style="height:75%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:60%"></i><i style="height:30%"></i>
+        </div>
+        <span class="play-label">2:40</span>
+      </div>
+    </article>
+  </div>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">A daily ritual, not a feed</span>
+        <h2>Built to be listened to</h2>
+        <p>Press play, set the phone down, and let the day begin with something worth carrying.</p>
+      </div>
+      <div class="grid">
+        <div class="feature">
+          <div class="glyph">&#9685;</div>
+          <h3>Cinematic narration</h3>
+          <p>Every quote comes with a 2–3 minute voiced narration: the history, the meaning, and a reflection for the day.</p>
+        </div>
+        <div class="feature">
+          <div class="glyph">&#9835;</div>
+          <h3>Background audio</h3>
+          <p>Keeps playing when the screen locks — with full lock-screen controls. Listen while you make coffee or walk.</p>
+        </div>
+        <div class="feature">
+          <div class="glyph">&#9737;</div>
+          <h3>One quiet reminder</h3>
+          <p>A single daily nudge at a time you choose. No badges, no streak-shaming, no twelve notifications a day.</p>
+        </div>
+        <div class="feature">
+          <div class="glyph">&#9650;</div>
+          <h3>Streak &amp; archive</h3>
+          <p>A gentle streak for showing up, and a full archive of every past day to revisit whenever you like.</p>
+        </div>
+        <div class="feature">
+          <div class="glyph">&#9733;</div>
+          <h3>Save your favourites</h3>
+          <p>The lines that land stay with you. Save any quote and return to it on the days you need it most.</p>
+        </div>
+        <div class="feature">
+          <div class="glyph">&#9998;</div>
+          <h3>Private reflection journal</h3>
+          <p>Answer the day's prompt in your own words. Your reflections are yours alone — no audience, ever.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT PORCH IS NOT -->
+  <section class="not">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Stoicism is doing less, better</span>
+        <h2>What Porch is not</h2>
+        <p>The app is built the way the philosophy is.</p>
+      </div>
+      <div class="row">
+        <span class="pill"><s>No</s> social feed</span>
+        <span class="pill"><s>No</s> AI chatbot</span>
+        <span class="pill"><s>No</s> gamified points</span>
+        <span class="pill"><s>No</s> ads</span>
+        <span class="pill"><s>No</s> endless scroll</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final">
+    <div class="wrap">
+      <span class="eyebrow">Start tomorrow morning</span>
+      <h2 style="margin-top:var(--lg)">Begin the day on the porch.</h2>
+      <p class="sub">One stoic. Every morning. Narrated like a documentary.</p>
+      <div class="badges">
+        <a class="store-badge" href="#"><span>&#63743;</span><span><small>Download on the</small>App Store</span></a>
+      </div>
+      <p class="free-note">Free to use. Available on iPhone.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="brand">Porch</span>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="support.html">Support</a>
+    </nav>
+    <p class="fine">© 2026 Porch. One stoic. Every morning.</p>
+  </div>
+</footer>
+
+</body>
+</html>
