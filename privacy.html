@@ -7,44 +7,25 @@
 <meta name="robots" content="index" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
-<style>
-  :root{
-    --stone:#1C1610; --stone2:#2C2416; --parchment:#F2E8D0;
-    --gold:#C9A84C; --gold-light:#E8D5A3; --gold-dark:#8B6914;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{background:var(--stone);color:var(--gold-light);
-    font-family:'Crimson Pro',Georgia,serif;font-weight:300;line-height:1.7;
-    -webkit-font-smoothing:antialiased;padding:0 0 80px;}
-  .wrap{max-width:760px;margin:0 auto;padding:0 24px;}
-  header{text-align:center;padding:72px 0 32px;
-    background:radial-gradient(120% 80% at 50% -10%,rgba(201,168,76,0.10),transparent 60%);}
-  .brand{font-family:'Cinzel',serif;font-weight:600;letter-spacing:0.32em;
-    text-transform:uppercase;color:var(--gold);font-size:13px;}
-  h1{font-family:'Cinzel',serif;font-weight:500;color:var(--gold-light);
-    font-size:34px;margin:18px 0 6px;letter-spacing:0.02em;}
-  .eff{font-style:italic;opacity:0.6;font-size:15px;}
-  h2{font-family:'Cinzel',serif;font-weight:500;color:var(--gold);
-    font-size:19px;letter-spacing:0.06em;margin:40px 0 12px;}
-  p,li{font-size:18px;opacity:0.88;}
-  ul{margin:8px 0 8px 22px;}
-  li{margin-bottom:8px;}
-  strong{color:var(--gold-light);font-weight:400;}
-  a{color:var(--gold);text-decoration:none;}
-  a:hover{text-decoration:underline;}
-  .divider{height:1px;background:rgba(139,105,20,0.25);margin:28px 0;}
-  footer{text-align:center;margin-top:48px;opacity:0.5;font-size:14px;font-style:italic;}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<header>
-  <div class="brand">Porch</div>
-  <h1>Privacy Policy</h1>
-  <p class="eff">Effective 29 June 2026</p>
+
+<header class="bar">
+  <div class="bar-inner">
+    <a class="brand" href="index.html">Porch</a>
+    <a class="cta" href="index.html">Home</a>
+  </div>
 </header>
 
-<main class="wrap">
+<div class="page-head">
+  <span class="eyebrow">Privacy Policy</span>
+  <h1>Privacy Policy</h1>
+  <p class="tag">Effective 29 June 2026</p>
+</div>
+
+<main class="prose">
   <p>Porch (“we”, “us”, the “app”) is a daily stoic wisdom app with cinematic
   narration. We believe in collecting as little as possible. This policy explains
   what we collect, why, and the choices you have.</p>
@@ -87,8 +68,8 @@
   <h2>Data retention &amp; your choices</h2>
   <ul>
     <li>You can sign out at any time from the Profile screen.</li>
-    <li>You can request deletion of your account and all associated data at any
-      time — either from within the app or by emailing us at the address below.
+    <li>You can delete your account and all associated data at any time — from
+      the Profile screen (Delete Account) or by emailing us at the address below.
       We will delete your account information and reflections from our systems.</li>
   </ul>
 
@@ -104,8 +85,20 @@
   <p>Questions or data-deletion requests:
   <a href="mailto:ashraf.elkoly@gmail.com">ashraf.elkoly@gmail.com</a></p>
 
-  <div class="divider"></div>
-  <footer>© 2026 Porch. One stoic. Every morning.</footer>
+  <div class="rule"></div>
 </main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="index.html">Porch</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="support.html">Support</a>
+    </nav>
+    <p class="fine">© 2026 Porch. One stoic. Every morning.</p>
+  </div>
+</footer>
+
 </body>
 </html>
